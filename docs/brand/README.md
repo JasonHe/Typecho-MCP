@@ -1,17 +1,17 @@
 # Typecho MCP Brand Assets
 
-Selected logo direction: **Writing Workbench**.
+Selected logo direction: **Folded T Document**.
 
 Why this direction:
 
 - It keeps the product centered on writing, review, and publishing.
-- The document shape and subtle `T` mark connect naturally to Typecho and Markdown.
-- The right-edge nodes suggest MCP and remote publishing without making the app feel like a generic developer console.
-- The restrained graphite, ivory, teal, and amber palette matches the safety-first desktop workbench direction.
+- The folded document shape and subtle `T` mark connect naturally to Typecho, Markdown, and desktop writing tools.
+- The restrained protocol accents can carry MCP meaning without making the app feel like a generic developer console.
+- The graphite, ivory, teal, and amber palette matches the safety-first local workbench direction.
 
 Current assets:
 
-- `assets/typecho-mcp-logo.svg`
+- `assets/typecho-mcp-logo.svg` - legacy vector exploration, not the current raster source
 - `assets/typecho-mcp-logo.png`
 - `logo-concepts/concept-02-writing-workbench.svg`
 - `logo-concepts/concept-02-writing-workbench.png`
