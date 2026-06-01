@@ -202,7 +202,13 @@ Series materials live in [docs/series](docs/series/README.md).
 
 ### Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=JasonHe/Typecho-MCP&type=Date)](https://www.star-history.com/#JasonHe/Typecho-MCP&Date)
+<a href="https://star-history.com/#jasonhe/typecho-mcp&Date">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/image?repos=jasonhe/typecho-mcp&type=Date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/image?repos=jasonhe/typecho-mcp&type=Date" />
+    <img alt="Star History Chart" src="https://api.star-history.com/image?repos=jasonhe/typecho-mcp&type=Date" />
+  </picture>
+</a>
 
 ## 中文
 
@@ -314,7 +320,13 @@ http://127.0.0.1:4783
 
 ### 星标历史
 
-[![Star History Chart](https://api.star-history.com/svg?repos=JasonHe/Typecho-MCP&type=Date)](https://www.star-history.com/#JasonHe/Typecho-MCP&Date)
+<a href="https://star-history.com/#jasonhe/typecho-mcp&Date">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/image?repos=jasonhe/typecho-mcp&type=Date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/image?repos=jasonhe/typecho-mcp&type=Date" />
+    <img alt="Star History Chart" src="https://api.star-history.com/image?repos=jasonhe/typecho-mcp&type=Date" />
+  </picture>
+</a>
 
 ### 参与贡献
 
