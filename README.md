@@ -190,15 +190,15 @@ See [Roadmap](docs/roadmap.md).
 
 ### Development Series
 
-A five-part build series is planned around the project:
+A five-part build series records the project from idea to first usable release shape:
 
 1. [From idea to local-first Typecho MCP Workbench](https://www.okjason.com/archives/typecho-mcp-vibe-coding-01.html)
 2. [SSH zero-touch deploy and the tiny PHP agent](https://www.okjason.com/archives/typecho-mcp-vibe-coding-02.html)
 3. [MCP tools, snapshots, rollback, media, and audit logs](https://www.okjason.com/archives/typecho-mcp-vibe-coding-03.html)
 4. [Designing the human writing workbench](https://www.okjason.com/archives/typecho-mcp-vibe-coding-04-workbench-desktop.html)
-5. Safety, asset providers, desktop packaging, and the road to v1.0 — planned
+5. [Safety, asset providers, desktop packaging, and the road to v1.0](https://www.okjason.com/archives/typecho-mcp-vibe-coding-05-asset-providers-safety.html)
 
-Series materials live in [docs/series](docs/series/README.md). More public article links will be filled in as the posts are published.
+Series materials live in [docs/series](docs/series/README.md).
 
 ### Star History
 

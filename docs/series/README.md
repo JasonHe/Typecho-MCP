@@ -12,10 +12,10 @@ This folder keeps public article notes and visual assets for the Typecho MCP Wor
 - `assets/2026-06-01-writing-workspace-focus-write.png` - writing-focused workspace.
 - `assets/2026-06-01-publish-review-sheet.png` - publish review and confirmation sheet.
 
-## Planned Articles
+## Published Articles
 
-1. From idea to local-first Typecho MCP Workbench.
-2. SSH zero-touch deploy and the tiny PHP agent.
-3. MCP tools, snapshots, rollback, media, and audit logs.
-4. Designing the human writing workbench.
-5. Safety, asset providers, desktop packaging, and the road to v1.0.
+1. [From idea to local-first Typecho MCP Workbench](https://www.okjason.com/archives/typecho-mcp-vibe-coding-01.html)
+2. [SSH zero-touch deploy and the tiny PHP agent](https://www.okjason.com/archives/typecho-mcp-vibe-coding-02.html)
+3. [MCP tools, snapshots, rollback, media, and audit logs](https://www.okjason.com/archives/typecho-mcp-vibe-coding-03.html)
+4. [Designing the human writing workbench](https://www.okjason.com/archives/typecho-mcp-vibe-coding-04-workbench-desktop.html)
+5. [Safety, asset providers, desktop packaging, and the road to v1.0](https://www.okjason.com/archives/typecho-mcp-vibe-coding-05-asset-providers-safety.html)
