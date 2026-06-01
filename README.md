@@ -194,7 +194,7 @@ A five-part build series is planned around the project:
 
 1. [From idea to local-first Typecho MCP Workbench](https://www.okjason.com/archives/typecho-mcp-vibe-coding-01.html)
 2. [SSH zero-touch deploy and the tiny PHP agent](https://www.okjason.com/archives/typecho-mcp-vibe-coding-02.html)
-3. MCP tools, snapshots, rollback, media, and audit logs — draft ready
+3. [MCP tools, snapshots, rollback, media, and audit logs](https://www.okjason.com/archives/typecho-mcp-vibe-coding-03.html)
 4. Designing the human writing workbench — planned
 5. Safety, asset providers, desktop packaging, and the road to v1.0 — planned
 
