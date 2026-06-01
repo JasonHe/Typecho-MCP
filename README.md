@@ -300,6 +300,22 @@ http://127.0.0.1:4783
 - 宣称完整支持所有数据库和所有主机面板
 - 把本地 MCP HTTP 端口暴露到公网
 
+### 开发连载
+
+这个项目的第一阶段开发过程已经整理成五篇中文连载：
+
+1. [从一个想法到能被 AI 推送的博客](https://www.okjason.com/archives/typecho-mcp-vibe-coding-01.html)
+2. [SSH 零操作，把远程博客接成本地工作台](https://www.okjason.com/archives/typecho-mcp-vibe-coding-02.html)
+3. [把博客操作变成 AI Agent 能安全调用的工具](https://www.okjason.com/archives/typecho-mcp-vibe-coding-03.html)
+4. [localhost 只是原型，真正目标是本地人类工作台](https://www.okjason.com/archives/typecho-mcp-vibe-coding-04-workbench-desktop.html)
+5. [图床、文件床和 v1 之前的安全边界](https://www.okjason.com/archives/typecho-mcp-vibe-coding-05-asset-providers-safety.html)
+
+连载配图和公开素材记录保存在 [docs/series](docs/series/README.md)。
+
+### 星标历史
+
+[![Star History Chart](https://api.star-history.com/svg?repos=JasonHe/Typecho-MCP&type=Date)](https://www.star-history.com/#JasonHe/Typecho-MCP&Date)
+
 ### 参与贡献
 
 欢迎贡献：
