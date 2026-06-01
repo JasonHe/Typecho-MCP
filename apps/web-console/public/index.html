@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Typecho MCP Workbench</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <nav class="activity-bar" aria-label="Workbench modes">
+        <button class="activity-button active" type="button" data-activity="content" aria-label="Content" title="Content">C</button>
+        <button class="activity-button" type="button" data-activity="review" aria-label="Review" title="Review">R</button>
+        <button class="activity-button" type="button" data-activity="assets" aria-label="Assets" title="Assets">A</button>
+        <button class="activity-button" type="button" data-activity="operations" aria-label="Operations" title="Operations">O</button>
+        <button class="activity-button" type="button" data-activity="site" aria-label="Site" title="Site">S</button>
+      </nav>
+      <aside class="rail">
+        <div>
+          <p class="eyebrow">Typecho MCP</p>
+          <h1>Workbench</h1>
+        </div>
+        <label class="field">
+          <span>SSH Host</span>
+          <input id="host" value="typecho-host" />
+        </label>
+        <div class="site-card" id="site">Connecting...</div>
+        <div class="actions">
+          <button id="refresh">Refresh</button>
+          <button id="newDraft">New Draft</button>
+        </div>
+        <div class="external-box">
+          <div class="section-title">External Asset</div>
+          <input id="externalUrl" placeholder="https://cdn.example.com/image.png" />
+          <div class="actions">
+            <button id="insertImageUrl">Image</button>
+            <button id="insertFileUrl">File</button>
+          </div>
+        </div>
+        <div class="snapshots">
+          <div class="section-title">Snapshots</div>
+          <div id="snapshots"></div>
+        </div>
+        <div class="media">
+          <div class="section-title">Media</div>
+          <div id="media"></div>
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <section class="list-panel">
+          <div class="toolbar">
+            <input id="search" placeholder="Search posts" />
+            <select id="status">
+              <option value="">All</option>
+              <option value="draft">Draft</option>
+              <option value="publish">Published</option>
+              <option value="hidden">Hidden</option>
+              <option value="waiting">Waiting</option>
+            </select>
+          </div>
+          <div id="posts" class="posts"></div>
+        </section>
+
+        <section class="editor-panel view-write inspector-collapsed">
+          <div class="editor-top">
+            <input id="title" class="title-input" placeholder="Title" />
+            <div class="view-controls" role="group" aria-label="Editor view mode">
+              <button id="viewWrite" class="view-button active" type="button" data-view-mode="write">Write</button>
+              <button id="viewSplit" class="view-button" type="button" data-view-mode="split">Split</button>
+              <button id="viewPreview" class="view-button" type="button" data-view-mode="preview">Preview</button>
+              <button id="toggleSidebar" class="view-button" type="button" aria-pressed="false">Focus</button>
+              <button id="toggleInspector" class="view-button" type="button" aria-pressed="false">Show inspector</button>
+            </div>
+            <div class="editor-actions">
+              <button id="previewDiff">Diff</button>
+              <button id="save">Save</button>
+              <button id="prepare">Prepare</button>
+              <button id="publish">Publish</button>
+            </div>
+          </div>
+          <div class="meta-grid">
+            <label>
+              <span>Slug</span>
+              <input id="slug" />
+            </label>
+            <label>
+              <span>Status</span>
+              <select id="postStatus">
+                <option value="draft">Draft</option>
+                <option value="publish">Published</option>
+                <option value="hidden">Hidden</option>
+                <option value="waiting">Waiting</option>
+              </select>
+            </label>
+            <label>
+              <span>Categories</span>
+              <input id="categories" placeholder="comma separated" />
+            </label>
+            <label>
+              <span>Tags</span>
+              <input id="tags" placeholder="comma separated" />
+            </label>
+          </div>
+          <div class="editor-body">
+            <div class="editor-grid">
+              <textarea id="markdown" spellcheck="false"></textarea>
+              <article id="preview" class="preview"></article>
+            </div>
+            <aside id="inspector" class="inspector-panel" aria-label="Post inspector">
+              <p class="eyebrow">Inspector</p>
+              <div class="muted">Select a post to inspect context.</div>
+            </aside>
+          </div>
+          <div id="publishReport" class="publish-report"></div>
+          <pre id="log" class="log"></pre>
+          <section class="operations-panel" aria-label="Operations panel">
+            <div class="operations-head">
+              <div>
+                <p class="eyebrow">Operations</p>
+                <h2>Diagnostics & History</h2>
+              </div>
+              <div class="operations-tabs" role="tablist" aria-label="Operations tabs">
+                <button id="opsTabDiagnostics" class="ops-tab active" type="button" data-ops-tab="diagnostics">Diagnostics</button>
+                <button id="opsTabCache" class="ops-tab" type="button" data-ops-tab="cache">Cache</button>
+                <button id="opsTabPolicy" class="ops-tab" type="button" data-ops-tab="policy">Policy</button>
+                <button id="opsTabAudit" class="ops-tab" type="button" data-ops-tab="audit">Audit</button>
+                <button id="opsTabRequests" class="ops-tab" type="button" data-ops-tab="requests">Requests</button>
+              </div>
+            </div>
+            <div class="operations-content">
+              <div class="ops-section active" data-ops-section="diagnostics">
+                <div class="ops-toolbar">
+                  <button id="runDiagnostics">Run Checks</button>
+                  <button id="exportDebug">Debug Bundle</button>
+                </div>
+                <div id="diagnostics" class="diagnostics"></div>
+              </div>
+              <div class="ops-section" data-ops-section="cache">
+                <div class="ops-toolbar">
+                  <button id="loadCache">Status</button>
+                  <button id="clearCache">Clear</button>
+                </div>
+                <div id="cache" class="cache-status"></div>
+              </div>
+              <div class="ops-section" data-ops-section="policy">
+                <div class="ops-toolbar">
+                  <button id="loadPolicy">Status</button>
+                </div>
+                <div id="policy" class="policy-status"></div>
+              </div>
+              <div class="ops-section" data-ops-section="audit">
+                <div id="audit"></div>
+              </div>
+              <div class="ops-section" data-ops-section="requests">
+                <div id="requests"></div>
+              </div>
+            </div>
+          </section>
+        </section>
+      </main>
+
+      <footer id="statusBar" class="status-bar" role="status" aria-live="polite">
+        <div class="status-group">
+          <span id="statusHost" class="status-pill">Host: typecho-host</span>
+          <span id="statusSite" class="status-pill">Site: loading</span>
+          <span id="statusPost" class="status-pill">No post selected</span>
+        </div>
+        <div class="status-group">
+          <span id="statusDirty" class="status-pill">Clean</span>
+          <span id="statusPrepare" class="status-pill">Prepare required</span>
+          <span id="statusPolicy" class="status-pill">Policy: unknown</span>
+        </div>
+        <div class="status-group status-ops">
+          <span id="statusBusy" class="status-pill">Idle</span>
+          <button id="statusLastOperation" class="status-pill status-button" type="button" disabled>No operation</button>
+          <span id="statusError" class="status-pill">OK</span>
+        </div>
+      </footer>
+
+      <div id="confirmOverlay" class="confirm-overlay" hidden>
+        <section class="confirm-sheet" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+          <div class="confirm-sheet-head">
+            <div>
+              <p id="confirmEyebrow" class="eyebrow">Review</p>
+              <h2 id="confirmTitle">Confirm operation</h2>
+            </div>
+            <button id="confirmClose" class="ghost-button" type="button">Close</button>
+          </div>
+          <div id="confirmBody" class="confirm-body"></div>
+          <div class="confirm-actions">
+            <button id="confirmCancel" class="secondary-button" type="button">Cancel</button>
+            <button id="confirmRun" class="danger-button" type="button">Confirm</button>
+          </div>
+        </section>
+      </div>
+    </div>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>

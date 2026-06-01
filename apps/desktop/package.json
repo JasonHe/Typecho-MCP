@@ -1,0 +1,12 @@
+{
+  "name": "@typecho-mcp/desktop",
+  "version": "0.1.0-alpha.1",
+  "private": true,
+  "description": "Tauri desktop shell for Typecho MCP Workbench.",
+  "type": "module",
+  "scripts": {
+    "tauri": "cargo tauri",
+    "dev": "cargo tauri dev",
+    "build": "cargo tauri build"
+  }
+}

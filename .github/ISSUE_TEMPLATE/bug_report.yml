@@ -1,0 +1,43 @@
+name: Bug report
+description: Report a reproducible problem.
+title: "bug: "
+labels:
+  - bug
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What went wrong?
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Include OS, Node version, Typecho version, hosting style, and whether Typecho runs in Docker.
+      placeholder: |
+        Local OS:
+        Node:
+        Remote OS:
+        Typecho:
+        Runtime mode: host_php / docker_exec
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Commands or actions that reproduce the issue.
+      placeholder: |
+        1. node apps/local-service/src/cli.js probe --host ...
+        2. ...
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: Paste relevant logs after removing secrets, host keys, passwords, private paths, and tokens.
+      render: text
+

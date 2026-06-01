@@ -1,0 +1,12 @@
+{
+  "agentVersion": "0.1.1",
+  "protocolVersion": "2026-05-31",
+  "capabilities": {
+    "system": true,
+    "site": true,
+    "databaseCompatibility": true,
+    "postsRead": true,
+    "postsWrite": true,
+    "mediaWrite": true
+  }
+}

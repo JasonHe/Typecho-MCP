@@ -1,0 +1,34 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Typecho MCP Workbench",
+  "version": "0.1.0-alpha.1",
+  "identifier": "dev.typecho_mcp.workbench",
+  "build": {
+    "frontendDist": "../../web-console/public",
+    "devUrl": "http://127.0.0.1:4783"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "Typecho MCP Workbench",
+        "url": "http://127.0.0.1:4783",
+        "width": 1440,
+        "height": 960,
+        "minWidth": 1100,
+        "minHeight": 720,
+        "resizable": true,
+        "fullscreen": false
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["app"],
+    "category": "Productivity",
+    "shortDescription": "Local-first Typecho MCP writing workbench",
+    "longDescription": "A local-first desktop workbench for writing, reviewing, and safely publishing to a remote Typecho blog through MCP-compatible operations."
+  }
+}

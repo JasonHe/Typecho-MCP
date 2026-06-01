@@ -1,0 +1,35 @@
+name: Feature request
+description: Suggest a capability or workflow.
+title: "feat: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What user or agent workflow would this improve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: What should the project do?
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - MCP
+        - SSH detection
+        - Remote PHP agent
+        - Markdown editor
+        - Desktop UI
+        - Security
+        - Documentation
+    validations:
+      required: true
+
