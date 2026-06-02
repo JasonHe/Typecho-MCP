@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">Tauri desktop route</title>
+  <desc id="desc">The web renderer moves through a backend adapter from HTTP today to Tauri invoke later while preserving policy and audit semantics.</desc>
+  <rect width="1280" height="720" fill="#f5f0e7"/>
+  <rect x="52" y="58" width="1176" height="604" rx="24" fill="#fffaf0" stroke="#d8cfc0"/>
+  <text x="96" y="126" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700" fill="#263238">Desktop route without a rewrite explosion</text>
+  <text x="96" y="164" font-family="Inter, Arial, sans-serif" font-size="18" fill="#5b625f">Keep the renderer; move the backend boundary deliberately.</text>
+
+  <g font-family="Inter, Arial, sans-serif" text-anchor="middle">
+    <rect x="112" y="282" width="210" height="116" rx="18" fill="#e8f4f0" stroke="#0d9488"/>
+    <text x="217" y="332" font-size="22" font-weight="700" fill="#263238">Web renderer</text>
+    <text x="217" y="364" font-size="16" fill="#5b625f">editor / preview / review</text>
+
+    <rect x="406" y="282" width="230" height="116" rx="18" fill="#fff" stroke="#d8cfc0"/>
+    <text x="521" y="332" font-size="22" font-weight="700" fill="#263238">Backend adapter</text>
+    <text x="521" y="364" font-size="16" fill="#5b625f">one UI contract</text>
+
+    <rect x="720" y="214" width="220" height="106" rx="18" fill="#fef3c7" stroke="#d97706"/>
+    <text x="830" y="262" font-size="22" font-weight="700" fill="#263238">HTTP today</text>
+    <text x="830" y="292" font-size="16" fill="#5b625f">local-service</text>
+
+    <rect x="720" y="374" width="220" height="106" rx="18" fill="#e8f4f0" stroke="#0d9488"/>
+    <text x="830" y="422" font-size="22" font-weight="700" fill="#263238">Tauri later</text>
+    <text x="830" y="452" font-size="16" fill="#5b625f">invoke commands</text>
+
+    <rect x="1012" y="282" width="168" height="116" rx="18" fill="#263238"/>
+    <text x="1096" y="326" font-size="22" font-weight="700" fill="#fffaf0">Same core</text>
+    <text x="1096" y="358" font-size="16" fill="#d1fae5">policy / snapshots</text>
+    <text x="1096" y="384" font-size="16" fill="#d1fae5">audit / debug</text>
+  </g>
+
+  <g stroke="#0d9488" stroke-width="4" fill="none" marker-end="url(#arrow)">
+    <path d="M322 340 H406"/>
+    <path d="M636 340 C674 340 682 267 720 267"/>
+    <path d="M636 340 C674 340 682 427 720 427"/>
+    <path d="M940 267 C980 267 974 340 1012 340"/>
+    <path d="M940 427 C980 427 974 340 1012 340"/>
+  </g>
+
+  <text x="320" y="560" font-family="Inter, Arial, sans-serif" font-size="20" fill="#263238">The desktop shell should add native comfort without bypassing the safety model.</text>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#0d9488"/>
+    </marker>
+  </defs>
+</svg>

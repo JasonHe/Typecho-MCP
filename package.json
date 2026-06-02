@@ -10,14 +10,22 @@
   ],
   "scripts": {
     "smoke": "bash tests/smoke.sh",
-    "console": "node apps/local-service/src/server.js",
-    "desktop:dev": "cargo tauri dev --config apps/desktop/src-tauri/tauri.conf.json",
-    "desktop:build": "cargo tauri build --config apps/desktop/src-tauri/tauri.conf.json",
-    "desktop:alpha:build": "cargo build --manifest-path apps/desktop/src-tauri/Cargo.toml --release --offline && bash apps/desktop/scripts/bundle-macos-app.sh",
-    "mcp:stdio": "node packages/mcp-server/src/server.js",
+    "test:php-agent-config": "bash tests/php-agent-config-fixtures.sh",
     "probe:host": "node apps/local-service/src/cli.js probe --host typecho-host",
     "health:host": "node apps/local-service/src/cli.js agent:health --host typecho-host",
-    "posts:host": "node apps/local-service/src/cli.js posts:list --host typecho-host --limit 10"
+    "posts:host": "node apps/local-service/src/cli.js posts:list --host typecho-host --limit 10",
+    "post:host": "node apps/local-service/src/cli.js posts:get --host typecho-host --cid 83",
+    "console": "node apps/local-service/src/server.js",
+    "verify:desktop": "bash scripts/verify-desktop-bundle.sh",
+    "desktop:verify": "bash scripts/verify-desktop-bundle.sh",
+    "desktop:preflight": "bash scripts/verify-desktop-bundle.sh --preflight",
+    "desktop:dev": "npm --prefix apps/desktop run dev",
+    "desktop:build": "npm --prefix apps/desktop run build",
+    "desktop:alpha:build": "cargo build --manifest-path apps/desktop/src-tauri/Cargo.toml --release --offline && bash apps/desktop/scripts/bundle-macos-app.sh",
+    "mcp:stdio": "node packages/mcp-server/src/server.js"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.0.0"
   },
   "keywords": [
     "typecho",

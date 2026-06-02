@@ -118,7 +118,7 @@ It should avoid exposing a public endpoint. The first version should run through
 For Docker deployments, the local service can execute the same agent through the host:
 
 ```text
-ssh host "docker exec -i typecho-container php /app/.typecho-mcp/current/agent.php"
+ssh host "docker exec -i typecho-php-1 php /app/.typecho-mcp/current/agent.php"
 ```
 
 ## Data Flow: First Connection

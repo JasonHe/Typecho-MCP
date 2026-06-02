@@ -5,8 +5,8 @@
   "description": "Tauri desktop shell for Typecho MCP Workbench.",
   "type": "module",
   "scripts": {
-    "tauri": "cargo tauri",
-    "dev": "cargo tauri dev",
-    "build": "cargo tauri build"
+    "tauri": "tauri",
+    "dev": "tauri dev",
+    "build": "tauri build"
   }
 }

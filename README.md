@@ -1,343 +1,239 @@
-<p align="center">
-  <img src="docs/brand/assets/typecho-mcp-logo.png" width="112" alt="Typecho MCP Workbench Logo" />
-</p>
+# Typecho MCP Workbench
 
-<h1 align="center">Typecho MCP Workbench</h1>
+Local-first Typecho MCP Workbench for humans and AI agents.
 
-<p align="center">
-  Local-first Typecho publishing workbench for humans and AI agents.
-  <br />
-  用 SSH 把 Typecho 变成一个本地优先、可审计、可回滚的 MCP 发布工作台。
-</p>
+Typecho MCP Workbench connects to an existing remote Typecho blog through SSH, deploys a tiny remote runtime automatically, and exposes two local interfaces:
 
-<p align="center">
-  <a href="#english">English</a> ·
-  <a href="#中文">中文</a> ·
-  <a href="docs/architecture.md">Architecture</a> ·
-  <a href="docs/security.md">Security</a> ·
-  <a href="docs/roadmap.md">Roadmap</a>
-</p>
+- a local Markdown writing/review workbench for humans
+- a local MCP server for AI agents that draft, revise, publish, and maintain posts
 
-<p align="center">
-  <img alt="status" src="https://img.shields.io/badge/status-alpha-orange" />
-  <img alt="local first" src="https://img.shields.io/badge/local--first-yes-2ea44f" />
-  <img alt="MCP" src="https://img.shields.io/badge/MCP-ready-6f42c1" />
-  <img alt="desktop" src="https://img.shields.io/badge/Tauri-alpha-24c8db" />
-  <img alt="Typecho" src="https://img.shields.io/badge/Typecho-1.2.x+-blue" />
-</p>
+The remote server stays simple. No public API is exposed, no Typecho admin panel operation is required, and no long-running remote service is needed for the first version.
 
-![Typecho MCP Workbench](docs/series/assets/typecho-mcp-workbench.jpg)
+## Why This Exists
 
-## English
+Typecho is small, fast, and loved by many independent bloggers. Modern writing workflows are changing: more drafts, revisions, media preparation, SEO checks, and publishing tasks are now handled by AI agents. A normal web admin panel is not the best interface for that.
 
-**Typecho MCP Workbench** connects to an existing Typecho blog over SSH, deploys a tiny PHP agent with zero remote setup, and exposes two local interfaces:
+This project turns a Typecho blog into an agent-operable publishing system while keeping the blog itself lightweight.
 
-- a Markdown workbench for human writing, review, diff, and publish confirmation
-- a local MCP server for AI agents that draft, revise, upload media, and request publish actions
-
-No public remote API. No Typecho admin plugin required. No long-running daemon on your server by default.
-
-### Why
-
-Typecho is small, fast, and loved by independent bloggers. But modern publishing workflows now include AI drafting, revision, media preparation, metadata checks, safety review, and rollback.
-
-A traditional web admin panel is not the best interface for agent-operated publishing.
-
-Typecho MCP Workbench turns your blog into a local, auditable publishing target while keeping the remote server lightweight.
-
-### How It Works
-
-```mermaid
-flowchart LR
-  Human["Human Writer"] --> UI["Local Markdown Workbench"]
-  Agent["AI Agent"] --> MCP["Local MCP Server"]
-  UI --> Ops["Local Operations<br/>policy · cache · snapshots · logs"]
-  MCP --> Ops
-  Ops --> SSH["SSH"]
-  SSH --> PHP["Tiny PHP Agent<br/>ephemeral runtime"]
-  PHP --> Blog["Typecho<br/>files · database"]
-```
-
-![Architecture](docs/series/assets/typecho-mcp-architecture.svg)
-
-### What Works Today
-
-- SSH target detection for remote Typecho installations
-- zero-touch PHP agent deploy/update
-- CLI, MCP stdio server, local Web Workbench, and Tauri desktop alpha
-- post list/detail, draft creation, update, publish confirmation, rollback
-- media list/upload and external media URL registration
-- local cache, durable request logs, audit logs, snapshots, and debug bundles
-- Diff Preview before updates and Snapshot Preview before rollback
-- Operation Policy for high-risk actions such as publish and rollback
-- SQLite-first compatibility reporting and graceful unsupported-database errors
-
-### Screenshots
-
-| Writing Workspace | Publish Review |
-| --- | --- |
-| ![Writing Workspace](docs/series/assets/2026-06-01-writing-workspace-focus-write.png) | ![Publish Review](docs/series/assets/2026-06-01-publish-review-sheet.png) |
-
-| Operations Panel | Context Menu |
-| --- | --- |
-| ![Operations Panel](docs/series/assets/2026-06-01-operations-panel-v1.png) | ![Context Menu](docs/series/assets/2026-06-01-ui-context-menu-v1.png) |
-
-### Quick Start
-
-Use an SSH alias from your local SSH config:
-
-```bash
-ssh your-ssh-alias
-```
-
-Probe a remote Typecho site:
-
-```bash
-node apps/local-service/src/cli.js probe --host your-ssh-alias
-```
-
-Deploy/check the PHP agent:
-
-```bash
-node apps/local-service/src/cli.js agent:health --host your-ssh-alias
-```
-
-List recent posts:
-
-```bash
-node apps/local-service/src/cli.js posts:list --host your-ssh-alias --limit 10
-```
-
-Start the local workbench:
-
-```bash
-TYPECHO_MCP_HOST=your-ssh-alias node apps/local-service/src/server.js
-```
-
-Open:
+## Product Shape
 
 ```text
-http://127.0.0.1:4783
+Human writer
+  -> Local Workbench UI
+  -> Backend adapter
+  -> Local service today / Tauri commands later
+  -> SSH
+  -> Remote PHP agent
+  -> Typecho
+
+AI agent
+  -> Local MCP server
+  -> Local service
+  -> SSH
+  -> Remote PHP agent
+  -> Typecho
 ```
 
-### MCP Usage
+The local operation layer is the center of the system. The human UI, MCP server, CLI, and future Tauri backend must call the same operation semantics, so permissions, audit logs, rollback snapshots, SSH state, and publishing rules stay consistent.
 
-```bash
-TYPECHO_MCP_HOST=your-ssh-alias node packages/mcp-server/src/server.js
-```
+## Core Principles
 
-Example MCP client config:
+- MCP-first: AI agents are first-class users, not an afterthought.
+- Local-first control: secrets, cache, drafts, logs, and approvals stay on the user's machine.
+- Zero-touch remote setup: the desktop client connects over SSH and deploys the remote runtime automatically.
+- Tiny remote footprint: the first version uses an ephemeral PHP agent instead of a public HTTP API.
+- Reversible operations: destructive writes should have snapshots, diffs, and rollback paths.
+- Human supervision where it matters: draft operations can be automated; publishing can require approval or trusted-agent policy.
+- SQLite-first release honesty: the current working target is SQLite; broader Typecho database compatibility must be explicit and tested before it is advertised.
+- Tauri-first desktop direction: Electron is not the main product architecture.
 
-```json
-{
-  "mcpServers": {
-    "typecho": {
-      "command": "node",
-      "args": ["/absolute/path/to/Typecho-MCP/packages/mcp-server/src/server.js"],
-      "env": {
-        "TYPECHO_MCP_HOST": "your-ssh-alias"
-      }
-    }
-  }
-}
-```
+## Planned Features
 
-Current MCP surfaces include site health, posts, media, audit logs, policy, cache, and snapshots. See [MCP Tools](docs/mcp-tools.md).
+- Connect to a remote Typecho server over SSH.
+- Detect Typecho root paths automatically.
+- Deploy and update a small PHP remote agent.
+- Read, create, edit, publish, schedule, and rollback posts.
+- Upload media and insert Markdown image references.
+- Register external image/file URLs from image hosts, file beds, object storage, or CDN links.
+- Manage categories, tags, slugs, excerpts, cover images, and publish times.
+- Maintain a local SQLite cache for drafts, remote snapshots, and operation logs.
+- Expose MCP tools over stdio and local Streamable HTTP.
+- Provide a lightweight Markdown editor with preview, outline, front matter, media insertion, and publish diff.
 
-### Safety Model
+## Documentation
 
-Publishing is treated as a high-impact operation.
+- [Project Structure](docs/project-structure.md)
+- [Architecture](docs/architecture.md)
+- [SSH Zero-Touch Deploy](docs/ssh-zero-touch-deploy.md)
+- [Remote Agent Protocol](docs/remote-agent-protocol.md)
+- [MCP Tools](docs/mcp-tools.md)
+- [Asset Providers](docs/asset-providers.md)
+- [Markdown Editor](docs/markdown-editor.md)
+- [Security Model](docs/security.md)
+- [Roadmap](docs/roadmap.md)
+- [GitHub Launch Plan](docs/github-launch.md)
 
-- SSH credentials stay local
-- local HTTP binds to `127.0.0.1` by default
-- publish requires explicit confirmation in the default policy
-- updates create snapshots where possible
-- audit logs and request logs are local-first
-- debug bundles are designed for diagnosis without leaking secrets
-
-See [Security Model](docs/security.md).
-
-### Compatibility Boundary
-
-The current alpha is **SQLite-first**.
-
-Supported now:
-
-- Typecho 1.2.x+
-- SSH access to the host
-- Docker-style deployments where Typecho can be reached from SSH
-- SQLite-backed Typecho sites
-
-Detected but not yet claimed for read/write support:
-
-- MySQL / MariaDB
-- PostgreSQL
-
-Broader database support is planned read-only first, then write support only after adapter tests, policy, snapshots, audit, cache invalidation, and Typecho hook-compatibility are addressed.
-
-### Roadmap
-
-| Milestone | Status | Scope |
-| --- | --- | --- |
-| Usable first version | Mostly complete | SSH, PHP agent, MCP/CLI/Web, posts/media/snapshots |
-| Trust core | First pass complete | diff, snapshot preview, policy, debug bundle, typed errors, timings |
-| Workbench UX | Active | writing workspace, inspector, operations panel, review sheets |
-| Desktop app | Alpha | Tauri shell, app icon, local service lifecycle |
-| Database compatibility | Planned | MySQL/MariaDB read-only baseline before write support |
-| Typecho management | Planned | pages, taxonomy, comments, plugins, settings as read-only first |
-
-See [Roadmap](docs/roadmap.md).
-
-### Development Series
-
-A five-part build series records the project from idea to first usable release shape:
-
-1. [From idea to local-first Typecho MCP Workbench](https://www.okjason.com/archives/typecho-mcp-vibe-coding-01.html)
-2. [SSH zero-touch deploy and the tiny PHP agent](https://www.okjason.com/archives/typecho-mcp-vibe-coding-02.html)
-3. [MCP tools, snapshots, rollback, media, and audit logs](https://www.okjason.com/archives/typecho-mcp-vibe-coding-03.html)
-4. [Designing the human writing workbench](https://www.okjason.com/archives/typecho-mcp-vibe-coding-04-workbench-desktop.html)
-5. [Safety, asset providers, desktop packaging, and the road to v1.0](https://www.okjason.com/archives/typecho-mcp-vibe-coding-05-asset-providers-safety.html)
-
-Series materials live in [docs/series](docs/series/README.md).
-
-### Star History
-
-<a href="https://star-history.com/#jasonhe/typecho-mcp&Date">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/image?repos=jasonhe/typecho-mcp&type=Date&theme=dark" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/image?repos=jasonhe/typecho-mcp&type=Date" />
-    <img alt="Star History Chart" src="https://api.star-history.com/image?repos=jasonhe/typecho-mcp&type=Date" />
-  </picture>
-</a>
-
-## 中文
-
-**Typecho MCP Workbench** 是一个本地优先的 Typecho 远端管理与 AI 发布工作台。
-
-它通过 SSH 连接已有 Typecho 博客，自动部署一个轻量 PHP agent，然后在本机提供：
-
-- 给人使用的 Markdown 写作、预览、Diff、发布确认工作台
-- 给 AI Agent 使用的本地 MCP Server
-
-默认不暴露远端公开 API，不要求安装 Typecho 后台插件，也不需要在服务器上常驻一个新服务。
-
-### 为什么做这个项目
-
-Typecho 很轻，很适合独立博客。但 AI 参与写作之后，发布流程变复杂了：草稿、改写、配图、摘要、标签、SEO、发布确认、回滚，都需要一个比传统后台更适合“人机协作”的界面。
-
-这个项目的目标不是让 AI 绕过人类发布文章，而是把 Typecho 变成一个可被 AI 安全操作、可被人类审阅确认的本地发布目标。
-
-### 工作方式
-
-```mermaid
-flowchart LR
-  Writer["人类作者"] --> UI["本地 Markdown 工作台"]
-  Agent["AI Agent"] --> MCP["本地 MCP Server"]
-  UI --> Ops["本地操作层<br/>策略 · 缓存 · 快照 · 日志"]
-  MCP --> Ops
-  Ops --> SSH["SSH"]
-  SSH --> PHP["轻量 PHP Agent"]
-  PHP --> Blog["Typecho<br/>文件 · 数据库"]
-```
-
-### 当前已实现
-
-- SSH 探测 Typecho 根目录和运行环境
-- 自动上传和更新轻量 PHP agent
-- 本地 CLI / MCP / Web Workbench / Tauri Alpha 桌面端
-- 文章列表、详情、草稿、更新、发布确认、回滚
-- 媒体上传、本地缓存、外链媒体登记
-- Diff Preview、Snapshot Preview、Debug Bundle
-- Operation Policy：默认人工确认发布
-- 本地审计日志与回滚快照
-- SQLite-first，兼容边界公开透明
-
-### 快速开始
-
-准备一个本地 SSH alias：
-
-```bash
-ssh your-ssh-alias
-```
-
-探测远端 Typecho：
-
-```bash
-node apps/local-service/src/cli.js probe --host your-ssh-alias
-```
-
-启动本地工作台：
-
-```bash
-TYPECHO_MCP_HOST=your-ssh-alias node apps/local-service/src/server.js
-```
-
-打开：
+## Proposed Repository Layout
 
 ```text
-http://127.0.0.1:4783
+typecho-mcp/
+├── apps/
+│   ├── desktop/
+│   ├── local-service/
+│   └── web-console/
+├── packages/
+│   ├── core/
+│   ├── editor/
+│   ├── mcp-server/
+│   ├── asset-providers/
+│   ├── remote-runtime/
+│   ├── ssh-connector/
+│   ├── sync-store/
+│   ├── ui/
+│   └── config/
+├── remote/
+│   └── php-agent/
+├── docs/
+├── tests/
+└── scripts/
 ```
 
-### 发布安全
+## Prototype Quick Start
 
-默认策略是 `manual_approval`：AI 可以创建草稿、更新草稿、准备发布材料，但发布需要人类确认。
+The current prototype is dependency-free and can run with Node.js only.
 
-高风险操作会进入策略检查：
+Probe a remote Typecho site through an SSH alias:
 
-- 发布文章
-- 修改已发布文章
-- 回滚已发布文章
-- 删除或覆盖内容
-- 更改永久链接
+```bash
+node apps/local-service/src/cli.js probe --host typecho-host
+```
 
-### 当前状态
+Deploy the tiny PHP agent and run a health check:
 
-项目处于 Alpha / SQLite-first release-candidate 准备阶段。
+```bash
+node apps/local-service/src/cli.js agent:health --host typecho-host
+```
 
-适合：
+List recent posts in read-only mode:
 
-- Typecho 用户试用本地 AI 发布工作流
-- MCP 工具开发者参考真实内容发布场景
-- 独立博客作者探索“AI 草稿 + 人类确认”的工作方式
+```bash
+node apps/local-service/src/cli.js posts:list --host typecho-host --limit 10
+```
 
-暂不建议：
+Read one post by Typecho `cid`:
 
-- 无审计地自动发布到生产博客
-- 宣称完整支持所有数据库和所有主机面板
-- 把本地 MCP HTTP 端口暴露到公网
+```bash
+node apps/local-service/src/cli.js posts:get --host typecho-host --cid 83
+```
 
-### 开发连载
+Launch the minimal MCP stdio prototype:
 
-这个项目的第一阶段开发过程已经整理成五篇中文连载：
+```bash
+TYPECHO_MCP_HOST=typecho-host node packages/mcp-server/src/server.js
+```
 
-1. [从一个想法到能被 AI 推送的博客](https://www.okjason.com/archives/typecho-mcp-vibe-coding-01.html)
-2. [SSH 零操作，把远程博客接成本地工作台](https://www.okjason.com/archives/typecho-mcp-vibe-coding-02.html)
-3. [把博客操作变成 AI Agent 能安全调用的工具](https://www.okjason.com/archives/typecho-mcp-vibe-coding-03.html)
-4. [localhost 只是原型，真正目标是本地人类工作台](https://www.okjason.com/archives/typecho-mcp-vibe-coding-04-workbench-desktop.html)
-5. [图床、文件床和 v1 之前的安全边界](https://www.okjason.com/archives/typecho-mcp-vibe-coding-05-asset-providers-safety.html)
+Launch the local human workbench:
 
-连载配图和公开素材记录保存在 [docs/series](docs/series/README.md)。
+```bash
+TYPECHO_MCP_HOST=typecho-host node apps/local-service/src/server.js
+```
 
-### 星标历史
+Then open `http://127.0.0.1:4783`.
 
-<a href="https://star-history.com/#jasonhe/typecho-mcp&Date">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/image?repos=jasonhe/typecho-mcp&type=Date&theme=dark" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/image?repos=jasonhe/typecho-mcp&type=Date" />
-    <img alt="Star History Chart" src="https://api.star-history.com/image?repos=jasonhe/typecho-mcp&type=Date" />
-  </picture>
-</a>
+The first working path supports Docker-hosted Typecho deployments where SSH reaches the Docker host and the Typecho app is mounted into a PHP container.
 
-### 参与贡献
+Run the release-candidate safety gate:
 
-欢迎贡献：
+```bash
+node apps/local-service/src/cli.js release:check --host typecho-host
+```
 
-- 不同 Typecho 部署方式的探测样例
-- MySQL / MariaDB 只读兼容测试
-- MCP client 配置示例
-- 发布确认 UI、Diff、Snapshot 体验改进
-- 文档、截图、教程和开发手记
+This performs safe read checks and verifies that publishing without confirmation is denied.
+
+## Current Compatibility Boundary
+
+The current release candidate is **SQLite-first**.
+
+Supported and verified now:
+
+- Typecho running on SQLite.
+- SSH access to the Typecho host.
+- Docker/Dockge deployments where Typecho is mounted into a PHP container.
+- Posts list/detail, draft creation, post update, publish with confirmation, rollback snapshots, media upload/list, external asset URL registration, audit logs, diagnostics, cache, debug bundles, and the local Web workbench.
+
+Detected but not yet supported for read/write operations:
+
+- MySQL / MariaDB.
+- PostgreSQL.
+
+The remote PHP agent reports database compatibility in health/site info and Debug Bundle output. Non-SQLite databases should be surfaced as unsupported instead of being treated as partially working. MySQL/MariaDB support is planned as read-only first, then write support only after adapter tests, policy, snapshots, audit, cache invalidation, and Typecho hook-compatibility risks are addressed.
+
+## Desktop Direction
+
+The final human app should be an independent desktop application, not just a browser page.
+
+Architecture decision:
+
+- Tauri is the long-term desktop direction.
+- Electron is not the main path.
+- The current local service remains the MCP/CLI/reference backend during migration.
+- The Web workbench now calls a backend adapter so it can later run against Tauri commands.
+
+## MCP Positioning
+
+The MCP server is the primary automation surface. It should expose tools for content operations, resources for blog state, and prompts for reusable editorial workflows.
+
+The first version should support:
+
+- stdio transport for local MCP clients
+- Streamable HTTP on `127.0.0.1` for local multi-client usage
+- explicit publish policy modes: `manual_approval`, `trusted_agent`, and `autopublish`
+
+MCP references:
+
+- [MCP specification 2025-06-18](https://modelcontextprotocol.io/specification/2025-06-18)
+- [MCP transports](https://modelcontextprotocol.io/specification/2025-06-18/basic/transports)
+- [MCP tools](https://modelcontextprotocol.io/specification/2025-06-18/server/tools)
+
+## Typecho Compatibility Target
+
+The first implementation should target Typecho 1.2.x and later, with runtime detection for older installations where possible. The remote agent should avoid depending on public admin pages and should prefer loading Typecho bootstrap code or using the configured database through Typecho-compatible models.
+
+Typecho references:
+
+- [Typecho install requirements](https://docs.typecho.org/install)
+- [Typecho plugin documentation](https://docs.typecho.org/plugins)
+- [Typecho releases](https://github.com/typecho/typecho/releases)
+
+## Status
+
+This repository is in SQLite-first release-candidate preparation.
+
+Implemented now:
+
+- SSH-based remote detection
+- Docker Typecho target detection
+- zero-touch PHP agent upload
+- remote agent health check
+- SQLite site info, post listing, post detail, and write operations
+- draft create, post update, publish, rollback snapshots
+- media upload into Typecho's upload directory with Markdown references
+- external image/file URL insertion for off-server asset hosting
+- local audit log for write, publish, rollback, and media operations
+- publish policy with manual approval as the default
+- dependency-free MCP stdio server with read/write tools
+- local human workbench with Activity Bar, Writing Workspace, Focus mode, Inspector, Operations Panel, Status Bar, Diff Preview, Snapshot Preview, Review/Confirm sheets, diagnostics, cache, policy, request logs, and Debug Bundle export
+- database compatibility reporting for SQLite-supported and non-SQLite-unsupported states
+- Tauri-first desktop architecture decision and frontend backend adapter
+
+The next engineering milestone is a first full usable SQLite-first release:
+
+1. finish release notes and compatibility wording,
+2. add targeted tests for policy/cache/preview/database compatibility,
+3. improve request-log filtering and failed-operation notes,
+4. start Tauri scaffolding only after the adapter boundary remains stable,
+5. plan MySQL/MariaDB read-only compatibility without claiming write support early.
 
 ## License
 
-This project is currently published for early public preview. A formal open-source license will be selected before the first stable release.
+License is not chosen yet. MIT or Apache-2.0 are good candidates for broad adoption, but the decision should be made before public launch.

@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">Asset provider shape</title>
+  <desc id="desc">Different asset providers normalize into the same media object and Markdown output.</desc>
+  <rect width="1280" height="720" fill="#f5f0e7"/>
+  <rect x="48" y="48" width="1184" height="624" rx="24" fill="#fffaf0" stroke="#d8cfc0"/>
+  <text x="92" y="118" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700" fill="#263238">Asset provider shape</text>
+  <text x="92" y="156" font-family="Inter, Arial, sans-serif" font-size="18" fill="#5b625f">Different storage choices should return the same useful publishing object.</text>
+
+  <g font-family="Inter, Arial, sans-serif" font-size="18" font-weight="600" fill="#263238">
+    <rect x="96" y="236" width="220" height="76" rx="16" fill="#e8f4f0" stroke="#0d9488"/>
+    <text x="134" y="282">Typecho local</text>
+    <rect x="96" y="342" width="220" height="76" rx="16" fill="#fef3c7" stroke="#d97706"/>
+    <text x="138" y="388">External URL</text>
+    <rect x="96" y="448" width="220" height="76" rx="16" fill="#e8f4f0" stroke="#0d9488"/>
+    <text x="140" y="494">S3 / R2</text>
+  </g>
+
+  <g stroke="#0d9488" stroke-width="4" fill="none" marker-end="url(#arrow)">
+    <path d="M316 274 C410 274 430 360 512 360"/>
+    <path d="M316 380 C410 380 430 360 512 360"/>
+    <path d="M316 486 C410 486 430 360 512 360"/>
+  </g>
+
+  <rect x="512" y="210" width="294" height="300" rx="20" fill="#263238"/>
+  <text x="552" y="264" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700" fill="#fffaf0">Normalized asset</text>
+  <g font-family="JetBrains Mono, SFMono-Regular, Menlo, monospace" font-size="17" fill="#d1fae5">
+    <text x="552" y="314">provider</text>
+    <text x="552" y="354">filename</text>
+    <text x="552" y="394">url</text>
+    <text x="552" y="434">kind</text>
+    <text x="552" y="474">markdown</text>
+  </g>
+  <g fill="#f59e0b">
+    <circle cx="724" cy="312" r="6"/>
+    <circle cx="724" cy="352" r="6"/>
+    <circle cx="724" cy="392" r="6"/>
+    <circle cx="724" cy="432" r="6"/>
+    <circle cx="724" cy="472" r="6"/>
+  </g>
+
+  <path d="M806 360 H930" stroke="#0d9488" stroke-width="4" marker-end="url(#arrow)" fill="none"/>
+  <g font-family="Inter, Arial, sans-serif">
+    <rect x="930" y="226" width="250" height="92" rx="16" fill="#fff" stroke="#d8cfc0"/>
+    <text x="970" y="280" font-size="22" font-weight="700" fill="#263238">Insert Markdown</text>
+    <rect x="930" y="364" width="250" height="92" rx="16" fill="#fff" stroke="#d8cfc0"/>
+    <text x="962" y="418" font-size="22" font-weight="700" fill="#263238">Prepare publish</text>
+    <rect x="930" y="502" width="250" height="92" rx="16" fill="#fff" stroke="#d8cfc0"/>
+    <text x="992" y="556" font-size="22" font-weight="700" fill="#263238">Audit trail</text>
+  </g>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#0d9488"/>
+    </marker>
+  </defs>
+</svg>

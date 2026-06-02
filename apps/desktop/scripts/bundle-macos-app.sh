@@ -27,7 +27,7 @@ cat > "$APP/Contents/Info.plist" <<'PLIST'
   <key>CFBundleExecutable</key>
   <string>typecho-mcp-desktop</string>
   <key>CFBundleIdentifier</key>
-  <string>dev.typecho_mcp.workbench</string>
+  <string>com.okjason.typecho-mcp-workbench</string>
   <key>CFBundleInfoDictionaryVersion</key>
   <string>6.0</string>
   <key>CFBundleName</key>

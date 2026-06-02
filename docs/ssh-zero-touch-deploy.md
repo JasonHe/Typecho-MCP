@@ -143,7 +143,7 @@ ssh user@host 'php /path/to/.typecho-mcp/agent.php'
 Docker mode:
 
 ```text
-ssh user@host 'docker exec -i typecho-container php /app/.typecho-mcp/current/agent.php'
+ssh user@host 'docker exec -i typecho-php-1 php /app/.typecho-mcp/current/agent.php'
 ```
 
 The local side sends JSON through stdin and reads JSON from stdout. Remote logs go to stderr.

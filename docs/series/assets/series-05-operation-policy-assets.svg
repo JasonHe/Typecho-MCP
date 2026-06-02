@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">Operation Policy for assets</title>
+  <desc id="desc">Asset operations are routed through medium, high, and critical policy gates.</desc>
+  <rect width="1280" height="720" fill="#f5f0e7"/>
+  <rect x="54" y="56" width="1172" height="608" rx="24" fill="#fffaf0" stroke="#d8cfc0"/>
+  <text x="96" y="124" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700" fill="#263238">Operation Policy also covers assets</text>
+  <text x="96" y="162" font-family="Inter, Arial, sans-serif" font-size="18" fill="#5b625f">Uploading an image is not the same risk as deleting media or writing provider credentials.</text>
+
+  <g font-family="Inter, Arial, sans-serif">
+    <rect x="110" y="236" width="286" height="302" rx="20" fill="#e8f4f0" stroke="#0d9488"/>
+    <text x="146" y="294" font-size="28" font-weight="700" fill="#0f766e">Medium</text>
+    <text x="146" y="346" font-size="21" fill="#263238">assets.upload</text>
+    <text x="146" y="386" font-size="21" fill="#263238">assets.register_url</text>
+    <text x="146" y="442" font-size="16" fill="#5b625f">Allowed for preparation,</text>
+    <text x="146" y="468" font-size="16" fill="#5b625f">recorded in audit log.</text>
+
+    <rect x="496" y="236" width="286" height="302" rx="20" fill="#fef3c7" stroke="#d97706"/>
+    <text x="532" y="294" font-size="28" font-weight="700" fill="#b45309">High</text>
+    <text x="532" y="346" font-size="21" fill="#263238">assets.rewrite_urls</text>
+    <text x="532" y="386" font-size="21" fill="#263238">media.delete</text>
+    <text x="532" y="442" font-size="16" fill="#5b625f">Needs preview, impact</text>
+    <text x="532" y="468" font-size="16" fill="#5b625f">report, and confirm.</text>
+
+    <rect x="882" y="236" width="286" height="302" rx="20" fill="#fee2e2" stroke="#dc2626"/>
+    <text x="918" y="294" font-size="28" font-weight="700" fill="#b91c1c">Critical</text>
+    <text x="918" y="346" font-size="21" fill="#263238">provider.configure</text>
+    <text x="918" y="386" font-size="21" fill="#263238">credential.write</text>
+    <text x="918" y="442" font-size="16" fill="#5b625f">Human confirmation,</text>
+    <text x="918" y="468" font-size="16" fill="#5b625f">local-only secret storage.</text>
+  </g>
+
+  <path d="M396 388 H496" stroke="#5b625f" stroke-width="3" marker-end="url(#arrow)" fill="none"/>
+  <path d="M782 388 H882" stroke="#5b625f" stroke-width="3" marker-end="url(#arrow)" fill="none"/>
+  <text x="510" y="598" font-family="Inter, Arial, sans-serif" font-size="20" fill="#263238">AI can prepare more work; policy decides when humans must review.</text>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#5b625f"/>
+    </marker>
+  </defs>
+</svg>

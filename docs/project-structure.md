@@ -129,7 +129,7 @@ Expected features:
 - parse JSON responses
 - map remote errors into typed local errors
 - detect host PHP execution targets
-- detect Docker execution targets such as `typecho-container:/app`
+- detect Docker execution targets such as `typecho-php-1:/app`
 
 This package understands the remote agent protocol but does not implement UI or MCP behavior.
 

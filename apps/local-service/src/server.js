@@ -31,6 +31,7 @@ import { listAuditEvents } from "../../../packages/audit-log/src/index.js";
 import { listOperationPolicies } from "../../../packages/policy/src/index.js";
 import {
   listRequestLogs,
+  sanitizeUrl,
   summarizeRequestLogs,
   writeRequestLog
 } from "../../../packages/request-log/src/index.js";
@@ -66,11 +67,12 @@ const server = http.createServer(async (request, response) => {
     }, context);
   } finally {
     const durationMs = Date.now() - context.startedAt;
+    const safeUrl = sanitizeUrl(request.url);
     recentRequests.unshift({
       operationId: context.operationId,
       timestamp: new Date().toISOString(),
       method: request.method,
-      url: request.url,
+      url: safeUrl,
       durationMs
     });
     recentRequests.splice(50);
@@ -87,7 +89,7 @@ const server = http.createServer(async (request, response) => {
       error: context.error
     }).catch(() => {});
     process.stdout.write(
-      `[${new Date().toISOString()}] ${context.operationId} ${request.method} ${request.url} ${durationMs}ms\n`
+      `[${new Date().toISOString()}] ${context.operationId} ${request.method} ${safeUrl} ${durationMs}ms\n`
     );
   }
 });
@@ -101,6 +103,20 @@ async function route(request, response, context) {
   const host = url.searchParams.get("host") || defaultHost;
   const forceRefresh = url.searchParams.get("refresh") === "1";
   context.host = host;
+
+  if (request.method === "GET" && url.pathname === "/api/desktop/identity") {
+    sendJson(response, 200, {
+      product: "typecho-mcp",
+      component: "local-service",
+      version: "0.1.0",
+      port,
+      hostAliasConfigured: Boolean(process.env.TYPECHO_MCP_HOST),
+      publishPolicy: process.env.TYPECHO_MCP_PUBLISH_POLICY || "manual_approval",
+      pid: process.pid,
+      uptimeSeconds: Math.round(process.uptime())
+    }, context);
+    return;
+  }
 
   if (request.method === "GET" && url.pathname === "/api/health") {
     sendJson(response, 200, await healthCheck({ host, forceRefresh, operationId: context.operationId }), context);

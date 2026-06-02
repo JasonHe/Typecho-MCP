@@ -46,8 +46,8 @@ Exit criteria:
 
 Current status:
 
-- SSH detection works against `your-ssh-alias`
-- Docker Typecho target detection works against `typecho-container`
+- SSH detection works against `typecho-host`
+- Docker Typecho target detection works against `typecho-php-1`
 - remote PHP agent health check works
 - read-only post listing works against SQLite Typecho
 - draft creation, update, publish, and local rollback snapshots work against SQLite Typecho
@@ -107,11 +107,13 @@ Deliverables:
 - metadata panel
 - media insertion
 - operation log panel
+- bilingual UI baseline: Simplified Chinese and English language toggle for user-facing labels, core actions, and status surfaces
 
 Exit criteria:
 
 - user can review and edit AI-generated drafts
 - user can push edits back to Typecho
+- the workbench can be used in either Chinese or English without changing code or rebuilding
 
 ## Phase 5: Publish Gate
 
@@ -184,12 +186,14 @@ Deliverables:
 - integration tests
 - plugin fallback research
 - community templates
+- bilingual public docs and release notes in Chinese and English
 
 Exit criteria:
 
 - a new user can try the project in under 10 minutes
 - a contributor can run tests locally
 - GitHub visitors can see the value immediately
+- Chinese and English users can understand README, release notes, safety boundaries, and basic UI flows
 
 ## Release Names
 

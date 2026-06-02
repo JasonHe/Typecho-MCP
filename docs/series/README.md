@@ -1,21 +1,27 @@
 # Typecho MCP Workbench Series Notes
 
-This folder keeps public article notes and visual assets for the Typecho MCP Workbench series.
+This folder keeps article-ready development notes and visual assets for the Typecho MCP Workbench series.
 
 ## Assets
 
 - `assets/typecho-mcp-workbench.jpg` - first usable local workbench screenshot.
 - `assets/typecho-mcp-architecture.svg` - local-first architecture diagram.
-- `assets/2026-05-31-publish-prepare-report.jpg` - publish readiness report.
-- `assets/2026-05-31-policy-cache-snapshot-preview.jpg` - policy, cache, diff, and snapshot preview surfaces.
-- `assets/2026-06-01-ui-context-menu-v1.png` - shared kebab/context menu surface.
-- `assets/2026-06-01-writing-workspace-focus-write.png` - writing-focused workspace.
-- `assets/2026-06-01-publish-review-sheet.png` - publish review and confirmation sheet.
+- `assets/2026-05-31-publish-prepare-report.jpg` - workbench screenshot showing the publish readiness report.
+- `assets/2026-05-31-policy-cache-snapshot-preview.jpg` - workbench screenshot showing policy, cache, diff, and snapshot preview surfaces.
+- `assets/2026-06-01-ui-context-menu-v1.png` - workbench screenshot showing the first shared kebab/context menu surface.
+- `article-materials-typed-errors-ui-command-surface.md` - reusable article notes for typed errors, operation timings, and command surface design.
+- `assets/series-01-hero-local-first-workbench.png` - generated hero image for article 01.
+- `assets/series-02-hero-ssh-zero-touch.png` - generated hero image for article 02.
+- `assets/series-03-hero-mcp-tool-control-plane.png` - generated hero image for article 03.
+- `assets/series-04-hero-human-workbench.png` - generated hero image for article 04.
+- `assets/series-05-hero-asset-providers-safety.png` - generated hero image for article 05.
+- `assets/series-05-provider-shape.svg` - deterministic article 05 provider shape diagram.
+- `assets/series-05-operation-policy-assets.svg` - deterministic article 05 policy diagram.
+- `assets/series-05-tauri-route.svg` - deterministic article 05 desktop route diagram.
+- `assets/series-05-v1-roadmap.svg` - deterministic article 05 v1 readiness diagram.
 
-## Published Articles
+## Draft Articles
 
-1. [From idea to local-first Typecho MCP Workbench](https://www.okjason.com/archives/typecho-mcp-vibe-coding-01.html)
-2. [SSH zero-touch deploy and the tiny PHP agent](https://www.okjason.com/archives/typecho-mcp-vibe-coding-02.html)
-3. [MCP tools, snapshots, rollback, media, and audit logs](https://www.okjason.com/archives/typecho-mcp-vibe-coding-03.html)
-4. [Designing the human writing workbench](https://www.okjason.com/archives/typecho-mcp-vibe-coding-04-workbench-desktop.html)
-5. [Safety, asset providers, desktop packaging, and the road to v1.0](https://www.okjason.com/archives/typecho-mcp-vibe-coding-05-asset-providers-safety.html)
+- `vibe-coding-log.md` - running log of the build process, decisions, screenshots, and article hooks.
+
+Keep temporary scripts and raw experiments in `work/`; keep reusable article material here so it is committed with the project.

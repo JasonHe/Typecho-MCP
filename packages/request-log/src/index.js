@@ -76,21 +76,16 @@ function requestFile(date) {
   return path.join(requestDir(), `${date.toISOString().slice(0, 10)}.jsonl`);
 }
 
-function sanitizeUrl(value) {
+export function sanitizeUrl(value) {
   if (!value) {
     return null;
   }
 
   try {
     const url = new URL(String(value), "http://127.0.0.1");
-    for (const key of [...url.searchParams.keys()]) {
-      if (/password|secret|token|key|base64/i.test(key)) {
-        url.searchParams.set(key, "[redacted]");
-      }
-    }
-    return `${url.pathname}${url.search}`;
+    return url.pathname;
   } catch {
-    return String(value);
+    return String(value).split(/[?#]/, 1)[0];
   }
 }
 

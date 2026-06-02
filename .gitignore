@@ -8,3 +8,14 @@ coverage/
 *.log
 .typecho-mcp-cache/
 work/
+*.app/
+*.dmg
+*.pkg
+*.p12
+*.pfx
+*.pem
+*.key
+*.crt
+*.cer
+*.mobileprovision
+*.provisionprofile

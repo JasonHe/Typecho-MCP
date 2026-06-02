@@ -192,6 +192,27 @@ Current implementation note:
 - Agent `0.1.1` reports database compatibility explicitly.
 - SQLite is the only supported read/write backend today.
 - Non-SQLite databases should return `DATABASE_NOT_SUPPORTED` with details including detected adapter, kind, operation, and supported kinds.
+- Local config fixtures cover SQLite, MySQL/MariaDB aliases, PostgreSQL, and unknown adapters without loading a real Typecho install or connecting to a real database.
+
+Unsupported database error example:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": "op_01HX...",
+  "error": {
+    "code": "DATABASE_NOT_SUPPORTED",
+    "message": "Database read operation is not supported for mysql (adapter: MariaDB). Supported database kinds: sqlite.",
+    "retryable": false,
+    "details": {
+      "adapter": "MariaDB",
+      "kind": "mysql",
+      "operation": "read",
+      "supportedKinds": ["sqlite"]
+    }
+  }
+}
+```
 
 ## Post Model
 

@@ -153,6 +153,12 @@ typecho.posts.rollback
 
 These tools use a minimal dependency-free stdio JSON-RPC server. The production implementation should move to the official MCP SDK when package management is available.
 
+## Database Compatibility Surface
+
+`typecho.site.health_check` and `typecho.site.get_info` should preserve the remote agent's `site.database.compatibility` object. The important fields are `status`, `supported`, `readSupported`, `writeSupported`, `supportedKinds`, and `message`.
+
+SQLite is the only supported read/write backend today. MySQL/MariaDB, PostgreSQL, and unknown adapters must remain disabled for read/write operations until an explicit adapter milestone changes that boundary. Tools that reach a non-SQLite database operation should surface the typed `DATABASE_NOT_SUPPORTED` error with `details.adapter`, `details.kind`, `details.operation`, and `details.supportedKinds`.
+
 ## Example Tool: Create Draft
 
 Input schema:

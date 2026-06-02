@@ -5,7 +5,7 @@ Dependency-free localhost workbench for reviewing posts, editing Markdown drafts
 Run through the local service:
 
 ```bash
-TYPECHO_MCP_HOST=your-ssh-alias node apps/local-service/src/server.js
+TYPECHO_MCP_HOST=typecho-host node apps/local-service/src/server.js
 ```
 
 Then open `http://127.0.0.1:4783`.

@@ -11,13 +11,46 @@ It is intentionally a transitional shell:
 
 ## Build
 
+Official Tauri bundle verification runs from the repository root after npm dependencies are installed:
+
+```bash
+npm run desktop:build
+```
+
+The root script dispatches into the desktop package so Tauri runs with `apps/desktop` as its working directory. The desktop package then uses the repo-local Tauri CLI declared in the root `package.json` and the config at:
+
+```text
+src-tauri/tauri.conf.json
+```
+
+Clean-machine preflight and bundle verification can be run with:
+
+```bash
+bash scripts/verify-desktop-bundle.sh --preflight
+bash scripts/verify-desktop-bundle.sh
+```
+
+The preflight requires a normal system Node toolchain that provides `node`, `npm`, and `npx`; the Codex bundled Node is not treated as a complete npm toolchain. If `npm` is missing, record the command, exit status, PATH/tool versions, and tooling limitation instead of falling back to `npx` or a global `tauri`.
+
+The macOS app bundle is expected under:
+
+```text
+apps/desktop/src-tauri/target/release/bundle/macos/Typecho MCP Workbench.app
+```
+
+Do not commit that `.app`, `target/`, generated schemas, signing material, logs, env files, or debug bundles.
+
+## Manual Alpha Fallback
+
+The manual alpha bundle exists only as a fallback when the official Tauri CLI/toolchain is unavailable:
+
 ```bash
 . "$HOME/.cargo/env"
 cargo build --manifest-path apps/desktop/src-tauri/Cargo.toml --release --offline
 bash apps/desktop/scripts/bundle-macos-app.sh
 ```
 
-The macOS app bundle is expected under:
+It writes to the same macOS bundle path:
 
 ```text
 apps/desktop/src-tauri/target/release/bundle/macos/Typecho MCP Workbench.app
@@ -52,10 +85,4 @@ TYPECHO_MCP_PROJECT_ROOT=/path/to/typecho-mcp TYPECHO_MCP_NODE=/path/to/node \
 
 ## Official Tauri Bundle
 
-The manual alpha bundle exists so the project can produce a first executable while the local Tauri CLI toolchain is still being finalized.
-
-Once `cargo tauri` is installed, the intended command is:
-
-```bash
-cargo tauri build --config apps/desktop/src-tauri/tauri.conf.json
-```
+The official path is `npm run desktop:build`, or `bash scripts/verify-desktop-bundle.sh` when a clean-machine preflight plus artifact hygiene scan is needed. If it fails because `npm`, the repo-local Tauri CLI, project npm dependencies, or the platform toolchain is missing, record the command, exit status, short error summary, and whether the failure is a tooling limitation. Do not retry indefinitely and do not treat the manual alpha fallback as proof that the official Tauri bundle path passed.

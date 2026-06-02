@@ -24,6 +24,13 @@
           <span>SSH Host</span>
           <input id="host" value="typecho-host" />
         </label>
+        <label class="field">
+          <span id="languageLabel">Language</span>
+          <select id="language">
+            <option value="zh-CN">中文</option>
+            <option value="en">English</option>
+          </select>
+        </label>
         <div class="site-card" id="site">Connecting...</div>
         <div class="actions">
           <button id="refresh">Refresh</button>
@@ -61,6 +68,7 @@
           </div>
           <div id="posts" class="posts"></div>
         </section>
+        <div id="postsResize" class="resize-handle resize-handle-posts" role="separator" aria-label="Resize post list" aria-orientation="vertical"></div>
 
         <section class="editor-panel view-write inspector-collapsed">
           <div class="editor-top">
@@ -73,43 +81,51 @@
               <button id="toggleInspector" class="view-button" type="button" aria-pressed="false">Show inspector</button>
             </div>
             <div class="editor-actions">
+              <button id="importMarkdown">Import MD</button>
+              <button id="exportMarkdown">Export MD</button>
               <button id="previewDiff">Diff</button>
               <button id="save">Save</button>
               <button id="prepare">Prepare</button>
               <button id="publish">Publish</button>
             </div>
           </div>
-          <div class="meta-grid">
-            <label>
-              <span>Slug</span>
-              <input id="slug" />
-            </label>
-            <label>
-              <span>Status</span>
-              <select id="postStatus">
-                <option value="draft">Draft</option>
-                <option value="publish">Published</option>
-                <option value="hidden">Hidden</option>
-                <option value="waiting">Waiting</option>
-              </select>
-            </label>
-            <label>
-              <span>Categories</span>
-              <input id="categories" placeholder="comma separated" />
-            </label>
-            <label>
-              <span>Tags</span>
-              <input id="tags" placeholder="comma separated" />
-            </label>
-          </div>
           <div class="editor-body">
             <div class="editor-grid">
               <textarea id="markdown" spellcheck="false"></textarea>
               <article id="preview" class="preview"></article>
             </div>
+            <div id="inspectorResize" class="resize-handle resize-handle-inspector" role="separator" aria-label="Resize inspector" aria-orientation="vertical"></div>
             <aside id="inspector" class="inspector-panel" aria-label="Post inspector">
-              <p class="eyebrow">Inspector</p>
-              <div class="muted">Select a post to inspect context.</div>
+              <section class="inspector-section">
+                <p class="eyebrow">Publish Info</p>
+                <div class="meta-grid">
+                  <label>
+                    <span>Slug</span>
+                    <input id="slug" />
+                  </label>
+                  <label>
+                    <span>Status</span>
+                    <select id="postStatus">
+                      <option value="draft">Draft</option>
+                      <option value="publish">Published</option>
+                      <option value="hidden">Hidden</option>
+                      <option value="waiting">Waiting</option>
+                    </select>
+                  </label>
+                  <label>
+                    <span>Categories</span>
+                    <input id="categories" placeholder="comma separated" />
+                  </label>
+                  <label>
+                    <span>Tags</span>
+                    <input id="tags" placeholder="comma separated" />
+                  </label>
+                </div>
+              </section>
+              <section id="inspectorContext" class="inspector-section">
+                <p class="eyebrow">Inspector</p>
+                <div class="muted">Select a post to inspect context.</div>
+              </section>
             </aside>
           </div>
           <div id="publishReport" class="publish-report"></div>
@@ -132,7 +148,19 @@
               <div class="ops-section active" data-ops-section="diagnostics">
                 <div class="ops-toolbar">
                   <button id="runDiagnostics">Run Checks</button>
+                  <button id="desktopServiceStatusButton">Service Status</button>
                   <button id="exportDebug">Debug Bundle</button>
+                  <label class="ops-profile-selector">
+                    <span id="startupProfileLabel">Startup Profile</span>
+                    <select id="startupProfileMode">
+                      <option value="auto">Auto</option>
+                      <option value="dev">Dev</option>
+                      <option value="local">Local</option>
+                      <option value="packaged">Packaged</option>
+                    </select>
+                  </label>
+                  <button id="saveStartupProfile">Save Profile</button>
+                  <span id="startupProfileStatus" class="ops-status">Profile: auto</span>
                 </div>
                 <div id="diagnostics" class="diagnostics"></div>
               </div>
@@ -170,6 +198,7 @@
           <span id="statusDirty" class="status-pill">Clean</span>
           <span id="statusPrepare" class="status-pill">Prepare required</span>
           <span id="statusPolicy" class="status-pill">Policy: unknown</span>
+          <span id="statusService" class="status-pill">Service: browser</span>
         </div>
         <div class="status-group status-ops">
           <span id="statusBusy" class="status-pill">Idle</span>
@@ -177,6 +206,14 @@
           <span id="statusError" class="status-pill">OK</span>
         </div>
       </footer>
+
+      <div id="commandOverlay" class="command-overlay" hidden>
+        <section class="command-palette" role="dialog" aria-modal="true" aria-labelledby="commandTitle">
+          <p id="commandTitle" class="eyebrow">Command Palette</p>
+          <input id="commandSearch" placeholder="Type a command..." autocomplete="off" />
+          <div id="commandList" class="command-list" role="listbox"></div>
+        </section>
+      </div>
 
       <div id="confirmOverlay" class="confirm-overlay" hidden>
         <section class="confirm-sheet" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">

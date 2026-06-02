@@ -602,7 +602,7 @@ function databaseKind(array $config): string
         return 'sqlite';
     }
 
-    if (str_contains($adapter, 'mysql')) {
+    if (str_contains($adapter, 'mysql') || str_contains($adapter, 'mariadb')) {
         return 'mysql';
     }
 

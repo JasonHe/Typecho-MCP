@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">v1 readiness gates</title>
+  <desc id="desc">The first release candidate focuses on SQLite, SSH, posts, media, policy, debug bundles, desktop alpha, and honest compatibility boundaries.</desc>
+  <rect width="1280" height="720" fill="#f5f0e7"/>
+  <rect x="52" y="52" width="1176" height="616" rx="24" fill="#fffaf0" stroke="#d8cfc0"/>
+  <text x="94" y="122" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700" fill="#263238">v1 readiness gates</text>
+  <text x="94" y="160" font-family="Inter, Arial, sans-serif" font-size="18" fill="#5b625f">Ship the useful core first, and state the boundaries honestly.</text>
+
+  <g font-family="Inter, Arial, sans-serif" font-size="19" fill="#263238">
+    <g transform="translate(100 230)">
+      <circle cx="0" cy="0" r="18" fill="#0d9488"/><text x="42" y="7">SQLite-first release candidate</text>
+      <circle cx="0" cy="58" r="18" fill="#0d9488"/><text x="42" y="65">Reliable SSH zero-touch setup</text>
+      <circle cx="0" cy="116" r="18" fill="#0d9488"/><text x="42" y="123">Posts and media core workflow</text>
+      <circle cx="0" cy="174" r="18" fill="#0d9488"/><text x="42" y="181">Publish and rollback review</text>
+    </g>
+    <g transform="translate(560 230)">
+      <circle cx="0" cy="0" r="18" fill="#f59e0b"/><text x="42" y="7">Local media + external URL baseline</text>
+      <circle cx="0" cy="58" r="18" fill="#f59e0b"/><text x="42" y="65">Policy visible in Web / CLI / MCP</text>
+      <circle cx="0" cy="116" r="18" fill="#f59e0b"/><text x="42" y="123">Debug Bundle useful in real incidents</text>
+      <circle cx="0" cy="174" r="18" fill="#f59e0b"/><text x="42" y="181">Tauri desktop alpha keeps safety semantics</text>
+    </g>
+  </g>
+
+  <rect x="182" y="534" width="916" height="72" rx="18" fill="#263238"/>
+  <text x="640" y="580" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700" fill="#fffaf0">Broader Typecho management stays read-only until preview, policy, audit, and backup are ready.</text>
+  <path d="M118 230 V404" stroke="#d8cfc0" stroke-width="4"/>
+  <path d="M578 230 V404" stroke="#d8cfc0" stroke-width="4"/>
+</svg>
